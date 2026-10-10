@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Little Garden — UX Case Study</title>
+<meta name="description" content="A UX case study: a beginner-first plant care app for urban Dhaka. Research, personas, flows, design system, high-fidelity UI, usability testing and accessibility.">
+<meta name="theme-color" content="#004621">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-plant" viewBox="0 0 24 24"><path d="M12 21v-9M12 12c0-4 3-6 7-6 0 4-3 6-7 6zM12 15c0-3-2-5-6-5 0 3 2 5 6 5zM7 21h10"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-today" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 15l2 2 4-4M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+  <symbol id="i-therm" viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z"/></symbol>
+  <symbol id="i-hum" viewBox="0 0 24 24"><path d="M12 3s5 5.500 5 9.500a5 5 0 0 1-10 0C7 8.500 12 3 12 3z"/><path d="M10 13a2 2 0 0 0 2 2"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15M5 19l8-8"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.500v.01"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.500c.7.700 1 1.500 1 2.500h6c0-1 .3-1.800 1-2.500A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3zM12 10v4M12 17v.01"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7L4 12l5 5M4 12h10a6 6 0 0 1 0 12"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><svg class="ic" style="stroke:var(--green)" aria-hidden="true"><use href="#i-plant"/></svg>Little Garden</a>
+    <nav aria-label="Case study sections" id="nav">
+      <a href="#overview">Overview</a><a href="#research">Research</a><a href="#compete">Compete</a><a href="#personas">Personas</a><a href="#define">Define</a><a href="#strategy">Strategy</a><a href="#ideate">Ideate</a><a href="#system">System</a><a href="#ui">UI</a><a href="#flow">Flow</a><a href="#testing">Testing</a><a href="#a11y">Access</a><a href="#future">Future</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="pill dark" style="background:rgba(255,255,255,.12)">UX case study · MA UX Design</span>
+      <h1 style="margin-top:22px">Little <em>Garden</em></h1>
+      <p class="tag">A beginner-first plant care app that helps people in Dhaka keep the plants they buy alive.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px">
+        <a class="btn p" href="#flow">See the Scan flow</a>
+        <a class="btn o" href="#overview">Read the case study</a>
+      </div>
+      <div class="meta">
+        <span>Designer<b>Nusrat Afsana Usha</b></span>
+        <span>Role<b>Research · UX · UI</b></span>
+        <span>Platform<b>Mobile (iOS / Android)</b></span>
+        <span>Tools<b>Figma · Miro · Google Forms</b></span>
+      </div>
+    </div>
+    <div class="hero-phones" aria-hidden="true">
+      <img src="assets/orig/home.jpg" alt="">
+      <img src="assets/orig/scan-result.jpg" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>01</b> Overview</div>
+      <h2>People in Dhaka buy plants with good intentions, then lose them.</h2>
+      <p>Not through indifference, but because nobody told them what a plant needs, when, or how urgently. Little Garden turns that gap into a calm daily routine: one task list, plain-language guidance, and a camera that answers “what plant is this?”.</p>
+    </div>
+
+    <dl class="facts">
+      <div><dt>Context</dt><dd>MA UX Design, London School of Design and Marketing (with Norwich University of the Arts)</dd></div>
+      <div><dt>Timeline</dt><dd>Term 1: research and concept. Term 2: high-fidelity UI and design system</dd></div>
+      <div><dt>Users</dt><dd>Beginner urban plant owners in Dhaka (indoor, balcony, rooftop)</dd></div>
+      <div><dt>Method</dt><dd>Double Diamond, user-centred design, think-aloud testing</dd></div>
+    </dl>
+
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card"><div class="stat">89.7%</div><p style="margin-top:10px">of surveyed Dhaka residents had lost a plant before.</p></div>
+      <div class="card"><div class="stat t">46.7%</div><p style="margin-top:10px">name <em>forgetting to water</em> as a main difficulty, and 43.3% don’t know how to care for plants.</p></div>
+      <div class="card"><div class="stat">73.3%</div><p style="margin-top:10px">want watering reminders, the most requested feature, so reminders became the product’s spine.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:32px">
+      <div class="card flat">
+        <h3>My role</h3>
+        <p>Sole designer across both terms: desk and primary research, benchmarking, personas, journey and flows, ideation, wireframes, the design system, the 8-screen high-fidelity prototype, two rounds of usability testing, and an accessibility audit.</p>
+      </div>
+      <div class="card flat">
+        <h3>Deliverables</h3>
+        <ul style="margin:0;padding-left:20px">
+          <li>Research synthesis, benchmarking, personas, journey map</li>
+          <li>Information architecture and user flows</li>
+          <li>Low-fidelity wireframes and clickable Figma prototype</li>
+          <li>Design system with accessibility-checked tokens</li>
+          <li>Refined Add Plant → Scan → Result → Tasks flow</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin:56px 0 16px">Process</h3>
+    <div class="dd">
+      <div><h4>Discover</h4><ul><li>Desk research</li><li>Benchmarking of 8 apps</li><li>Survey, 30 people</li><li>5 interviews</li></ul></div>
+      <div><h4>Define</h4><ul><li>Two personas</li><li>Journey map</li><li>Problem statement</li><li>How Might We</li></ul></div>
+      <div><h4>Develop</h4><ul><li>Affinity mapping and SCAMPER</li><li>Storyboards</li><li>Wireframes</li><li>Design system</li></ul></div>
+      <div><h4>Deliver</h4><ul><li>Hi-fi prototype</li><li>Two testing rounds</li><li>Accessibility audit</li><li>Iteration 3 refinements</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>02</b> Discover</div>
+      <h2>Research &amp; discovery</h2>
+      <p>Three lenses: what the literature says, what the market offers, and what Dhaka residents told me directly.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card"><span class="pill">Desk research</span><h3 style="margin-top:12px">Why it matters</h3>
+        <p>Indoor plants are linked to lower stress and better wellbeing (Bringslimark et al., 2009). Some species filter indoor air (NASA, 1989). Rooftop greening eases urban heat in Dhaka (Safayet et al., 2017).</p></div>
+      <div class="card"><span class="pill">Survey · n = 30</span><h3 style="margin-top:12px">What people do</h3>
+        <p>An online questionnaire covering plant ownership, motivations, air-pollution concern, care difficulties, plant loss and wanted features, completed by urban Dhaka residents.</p></div>
+      <div class="card"><span class="pill">Interviews · n = 5</span><h3 style="margin-top:12px">Why they struggle</h3>
+        <p>Semi-structured conversations with a student, an office worker, a homemaker, a freelancer and a small business owner. Different lives, one shared pattern.</p></div>
+    </div>
+
+    <h3 style="margin:56px 0 18px">Desk research themes</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Theme</th><th>What I looked at</th><th>Insight</th></tr></thead>
+      <tbody>
+        <tr><td><b>Urban environment</b></td><td>WHO air-pollution reports, urban environmental data</td><td>Air pollution harms health; indoor spaces matter for wellbeing.</td></tr>
+        <tr><td><b>Indoor plants</b></td><td>NASA Clean Air Study, psychology literature</td><td>Plants can improve indoor air and mood.</td></tr>
+        <tr><td><b>Urban gardening</b></td><td>Rooftop and balcony studies in Dhaka</td><td>Small spaces can support plant growth and reduce heat.</td></tr>
+        <tr><td><b>Beginner behaviour</b></td><td>UX research, learning-barrier studies</td><td>Lack of knowledge and fear of failure discourage engagement.</td></tr>
+        <tr><td><b>Habit formation</b></td><td>Hooked (Eyal, 2014), reminder research</td><td>Simple triggers build long-term routines.</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="callout warn" style="margin-top:40px">
+      <strong>A framing I corrected during synthesis</strong>
+      The survey also asked about air pollution, and 60% keep plants for cleaner air. That is the <em>motivation</em>. Plant care knowledge and consistency are the <em>barrier</em>. Holding both apart kept the product focused on care, with air quality as the reason people care.
+    </div>
+
+    <!-- Stats -->
+    <div class="sec-head" style="margin-top:80px"><div class="eyebrow">Research statistics</div><h2 style="font-size:32px">What 30 Dhaka residents told us</h2></div>
+    <div class="grid g2">
+      <div class="card chartcard"><h3>Why people keep plants</h3><p class="note">Share of respondents</p>
+        <div class="bars">
+          <div class="bar"><span>Already own plants</span><div class="tr"><div class="fl" style="--w:82.8%"></div></div><b>82.8%</b></div>
+          <div class="bar"><span>Air quality</span><div class="tr"><div class="fl" style="--w:60%"></div></div><b>60%</b></div>
+          <div class="bar"><span>Decoration</span><div class="tr"><div class="fl l" style="--w:40%"></div></div><b>40%</b></div>
+          <div class="bar"><span>Stress relief</span><div class="tr"><div class="fl l" style="--w:26.7%"></div></div><b>26.7%</b></div>
+          <div class="bar"><span>Concerned about air pollution</span><div class="tr"><div class="fl" style="--w:79.3%"></div></div><b>79.3%</b></div>
+          <div class="bar"><span>Believe plants clean air</span><div class="tr"><div class="fl" style="--w:82.8%"></div></div><b>82.8%</b></div>
+        </div></div>
+      <div class="card chartcard"><h3>What goes wrong</h3><p class="note">Share of respondents</p>
+        <div class="bars">
+          <div class="bar"><span>Have lost a plant</span><div class="tr"><div class="fl t" style="--w:89.7%"></div></div><b>89.7%</b></div>
+          <div class="bar"><span>Forget to water</span><div class="tr"><div class="fl t" style="--w:46.7%"></div></div><b>46.7%</b></div>
+          <div class="bar"><span>Don’t know how to care</span><div class="tr"><div class="fl t" style="--w:43.3%"></div></div><b>43.3%</b></div>
+          <div class="bar"><span>Lack of time</span><div class="tr"><div class="fl t" style="--w:33.3%"></div></div><b>33.3%</b></div>
+        </div>
+        <h3 style="margin:30px 0 4px">What they want in an app</h3><p class="note">Share of respondents</p>
+        <div class="bars">
+          <div class="bar"><span>Watering reminders</span><div class="tr"><div class="fl" style="--w:73.3%"></div></div><b>73.3%</b></div>
+          <div class="bar"><span>Plant care tips</span><div class="tr"><div class="fl" style="--w:60%"></div></div><b>60%</b></div>
+          <div class="bar"><span>Air-quality suggestions</span><div class="tr"><div class="fl" style="--w:46.7%"></div></div><b>46.7%</b></div>
+          <div class="bar"><span>Sunlight guidance</span><div class="tr"><div class="fl" style="--w:43.3%"></div></div><b>43.3%</b></div>
+        </div></div>
+    </div>
+    <p class="note" style="margin-top:14px">Source: primary online survey, urban Dhaka residents. Percentages are as reported in the survey summary; items are computed on 29–30 valid responses.</p>
+
+    <h3 style="margin:56px 0 18px">Interview themes</h3>
+    <p style="max-width:64ch">Five interviews, five different lives. All five converged on the same three problems, which I clustered on a Miro board with affinity mapping.</p>
+    <div class="sticky" role="img" aria-label="Affinity board with five themes: Hobby, Air purifier, Care tips, Lack of knowledge, Enjoy">
+      <div class="h s1">Hobby</div><div class="h s2">Air purifier</div><div class="h s3">Care tips</div><div class="h s4">Lack of knowledge</div><div class="h s5">Enjoy</div>
+      <div class="s1">People enjoy taking care of plants</div><div class="s2">Plants help improve indoor air quality</div><div class="s3">Users need simple plant care instructions</div><div class="s4">Many users do not know proper plant care</div><div class="s5">Users feel happy while caring for plants</div>
+      <div class="s1">Gardening is seen as a creative activity</div><div class="s2">People keep plants for a fresher home</div><div class="s3">Watering and sunlight guidance is important</div><div class="s4">People are unsure about watering frequency</div><div class="s5">Plant care reduces stress</div>
+      <div class="s1">Many like decorating their home with plants</div><div class="s2">Some use plants for health benefits</div><div class="s3">Step-by-step tips are preferred</div><div class="s4">Users often depend on guesswork</div><div class="s5">It gives a sense of relaxation</div>
+    </div>
+
+    <h3 style="margin:56px 0 18px">From research to decision</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Finding</th><th>Insight</th><th>Design decision</th></tr></thead>
+      <tbody>
+        <tr><td>46.7% forget to water. 73.3% want reminders.</td><td>Beginners need a trigger, not more information.</td><td>A task-first Home and a dedicated Today tab with a progress bar.</td></tr>
+        <tr><td>43.3% don’t know how to care. Interviews: “guesswork”.</td><td>Jargon makes beginners disengage.</td><td>Plain-language care fields: “Water when top soil feels dry”.</td></tr>
+        <tr><td>89.7% have lost a plant.</td><td>Failure has already damaged confidence.</td><td>Encouragement copy, never shame. Undo on every completed task.</td></tr>
+        <tr><td>Testing P5: “photograph a plant to find out what’s wrong”.</td><td>Beginners can’t name what they own.</td><td>Scan Plant with a confidence-rated result and a way to correct it.</td></tr>
+        <tr><td>60% keep plants for cleaner air.</td><td>Motivation is emotional, the barrier is practical.</td><td>Air-quality tips live in Care Guide, not in the daily flow.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- COMPETE -->
+<section id="compete">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>03</b> Benchmarking</div>
+      <h2>Competitive analysis</h2>
+      <p>I benchmarked four global and four local apps. Global tools are powerful but expert-oriented and often paid. Local tools are trusted but built for farmers. Nothing serves a beginner with a balcony in Dhaka.</p>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>App</th><th>Type</th><th>Offering</th><th>Audience</th><th>Accessibility</th><th>Key takeaway</th></tr></thead>
+      <tbody>
+        <tr class="me"><td>Little Garden</td><td>—</td><td>Care guidance, reminders, small-space gardening</td><td>Beginners</td><td>High simplicity</td><td>Gap: beginner-first and local</td></tr>
+        <tr><td>Planta</td><td>Direct, global</td><td>Care schedules, reminders</td><td>Plant owners</td><td>Moderate (paid features)</td><td>Feature-rich, subscription, too complex for beginners</td></tr>
+        <tr><td>PictureThis</td><td>Direct, global</td><td>Plant ID, disease detection</td><td>Gardeners</td><td>High usability</td><td>Strong AI, weak routine and engagement</td></tr>
+        <tr><td>Blossom</td><td>Indirect, global</td><td>Watering reminders</td><td>Beginners</td><td>Very high simplicity</td><td>Best simplicity, no structured onboarding</td></tr>
+        <tr><td>Gardenia</td><td>Indirect, global</td><td>Plant encyclopedia</td><td>Hobby gardeners</td><td>Moderate</td><td>Information-heavy, not interactive</td></tr>
+        <tr><td>Dr. Chashi</td><td>Local</td><td>AI crop disease detection (Bangla)</td><td>Farmers</td><td>Moderate</td><td>Too technical, farming-focused</td></tr>
+        <tr><td>Banglar Krishi</td><td>Local</td><td>Farming education</td><td>Farmers</td><td>High</td><td>Educational but not interactive</td></tr>
+        <tr><td>Cropwise Grower BD</td><td>Local</td><td>Crop management, analytics</td><td>Professional farmers</td><td>Low to moderate</td><td>Too complex for beginners</td></tr>
+        <tr><td>Farmercare</td><td>Local</td><td>Market and farming support</td><td>Farmers</td><td>Moderate</td><td>Agriculture economy, not plant care</td></tr>
+      </tbody>
+      <caption>Benchmarking table from Term 1. Accessibility ratings are my qualitative assessment, not an audit.</caption>
+    </table></div>
+
+    <div class="grid g2" style="margin-top:36px;align-items:center">
+      <div class="matrix">
+        <svg viewBox="0 0 480 400" role="img" aria-label="Positioning map: beginner-friendliness against local relevance for Dhaka. Little Garden sits top right, alone.">
+          <rect x="40" y="20" width="420" height="340" fill="#fff" stroke="#DDE3D8"/>
+          <line x1="250" y1="20" x2="250" y2="360" stroke="#DDE3D8" stroke-dasharray="4 4"/><line x1="40" y1="190" x2="460" y2="190" stroke="#DDE3D8" stroke-dasharray="4 4"/>
+          <rect x="250" y="20" width="210" height="170" fill="#EAF1D8" opacity=".7"/>
+          <text x="240" y="385" text-anchor="middle" font-size="13" fill="#5F5F5F" font-family="Poppins">Beginner-friendliness →</text>
+          <text transform="translate(14,190) rotate(-90)" text-anchor="middle" font-size="13" fill="#5F5F5F" font-family="Poppins">Local relevance (Dhaka) →</text>
+          <g font-family="Poppins" font-size="12" fill="#1B1F1C">
+            <circle cx="120" cy="300" r="8" fill="#D79378"/><text x="134" y="304">Planta</text>
+            <circle cx="170" cy="260" r="8" fill="#D79378"/><text x="184" y="264">PictureThis</text>
+            <circle cx="420" cy="290" r="8" fill="#D79378"/><text x="404" y="316" text-anchor="end">Blossom</text>
+            <circle cx="215" cy="325" r="8" fill="#D79378"/><text x="229" y="329">Gardenia</text>
+            <circle cx="95" cy="80" r="8" fill="#9cb863"/><text x="109" y="84">Cropwise</text>
+            <circle cx="130" cy="125" r="8" fill="#9cb863"/><text x="144" y="129">Dr. Chashi</text>
+            <circle cx="200" cy="150" r="8" fill="#9cb863"/><text x="170" y="172">Banglar Krishi</text>
+            <circle cx="75" cy="150" r="8" fill="#9cb863"/><text x="55" y="172">Farmercare</text>
+            <circle cx="400" cy="70" r="13" fill="#007537"/><text x="372" y="102" font-weight="700" fill="#004621">Little Garden</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <h3>Opportunities</h3>
+        <ul>
+          <li><b>Own the beginner.</b> Blossom proves simplicity works, but it has no onboarding or local context.</li>
+          <li><b>Keep identification, drop the intimidation.</b> PictureThis identifies well. The answer needs to lead somewhere: a routine.</li>
+          <li><b>Be local.</b> Monsoon and winter care, balcony and rooftop categories, and a path to Bangla.</li>
+          <li><b>Stay free to start.</b> Subscription gates were a repeated barrier for novices.</li>
+        </ul>
+        <p class="note">Placement on the map is a designer’s qualitative judgement from the benchmarking table.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section id="personas" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>04</b> Empathise</div>
+      <h2>Meet Fatema and Rehnuma</h2>
+      <p>Two composite personas built from the survey and five interviews (Cooper et al., 2014). They share a motivation and lack the same thing: structure and reassurance.</p>
+    </div>
+
+    <article class="persona">
+      <aside>
+        <div class="avatar" aria-hidden="true">F</div>
+        <h3>Fatema</h3><div>The Forgetful Student</div>
+        <dl><dt>Age</dt><dd>28</dd><dt>Occupation</dt><dd>University student</dd><dt>Location</dt><dd>Dhaka, apartment with a small balcony</dd><dt>Plants</dt><dd>A few indoor and balcony plants</dd><dt>Tech comfort</dt><dd>High, phone-first</dd></dl>
+      </aside>
+      <div class="body">
+        <p class="stmt full">“I love my plants. I just forget them when the week gets busy.”</p>
+        <div><h4>Goals</h4><ul><li>Keep every plant alive through exam weeks</li><li>Build a watering habit without effort</li><li>Know at a glance which plant needs her today</li></ul></div>
+        <div><h4>Pain points</h4><ul><li>Forgets to water during busy periods</li><li>Can’t remember when she last watered</li><li>Feels guilty when a plant droops, then avoids it</li></ul></div>
+        <div><h4>Behaviours</h4><ul><li>Checks her phone constantly, acts on notifications</li><li>Skims, rarely reads long instructions</li><li>Learns by trying</li></ul></div>
+        <div><h4>What Little Garden gives her</h4><ul><li>Task-first Home with one-tap done</li><li>Reminders at a time she chooses</li><li>Encouragement instead of shame</li></ul></div>
+      </div>
+    </article>
+
+    <article class="persona r">
+      <aside>
+        <div class="avatar" aria-hidden="true">R</div>
+        <h3>Rehnuma</h3><div>The Motivated Beginner</div>
+        <dl><dt>Age</dt><dd>35</dd><dt>Occupation</dt><dd>Office worker</dd><dt>Location</dt><dd>Dhaka, flat with indoor plants</dd><dt>Plants</dt><dd>Newly bought, unsure what they are</dd><dt>Tech comfort</dt><dd>Moderate</dd></dl>
+      </aside>
+      <div class="body">
+        <p class="stmt full">“I want a healthy home. I just don’t speak ‘plant’ yet.”</p>
+        <div><h4>Goals</h4><ul><li>Create a fresher, healthier home</li><li>Understand what each plant needs, in plain words</li><li>Feel confident she is doing it right</li></ul></div>
+        <div><h4>Pain points</h4><ul><li>Lacks basic plant vocabulary and knowledge</li><li>Unsure about watering frequency and sunlight</li><li>Afraid of picking the wrong care option</li></ul></div>
+        <div><h4>Behaviours</h4><ul><li>Googles care advice, finds jargon and conflicts</li><li>Needs reassurance before acting</li><li>Reads when the text is short and clear</li></ul></div>
+        <div><h4>What Little Garden gives her</h4><ul><li>Scan to identify the plant</li><li>Care fields in everyday language</li><li>Confirmation after every action</li></ul></div>
+      </div>
+    </article>
+    <p class="note">Personas are composites synthesised from research patterns; names, occupations and ages are from the Term 1 persona work, and the quoted lines are summarised themes rather than verbatim interview quotes.</p>
+  </div>
+</section>
+
+<!-- DEFINE -->
+<section id="define" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>05</b> Define</div>
+      <h2>Problem statement and How Might We</h2>
+    </div>
+    <p class="ps">Urban residents in Dhaka who want to grow indoor or balcony plants lack the <mark>knowledge</mark>, <mark>consistency</mark> and <mark>confidence</mark> to care for them. They need a simple, locally relevant tool that gives <mark>reminders</mark>, <mark>plain-language guidance</mark> and visible progress.</p>
+    <h3 style="margin:56px 0 18px">How Might We</h3>
+    <ol class="hmw" style="padding:0;margin:0">
+      <li style="background:#fff">How might we make watering reminders feel helpful rather than annoying?<small>Fatema · reminders, tone</small></li>
+      <li style="background:#fff">How might we help a complete beginner feel confident the first time they open the app?<small>Rehnuma · onboarding</small></li>
+      <li style="background:#fff">How might we show what needs care today without making the user search?<small>Both · task-first Home</small></li>
+      <li style="background:#fff">How might we replace care jargon with words a beginner already knows?<small>Rehnuma · content</small></li>
+      <li style="background:#fff">How might we help someone who doesn’t know a plant’s name still care for it correctly?<small>Rehnuma · Scan</small></li>
+      <li style="background:#fff">How might we keep people encouraged after they’ve lost a plant?<small>Both · tone, progress</small></li>
+    </ol>
+  </div>
+</section>
+
+<section id="journey" style="padding-top:80px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Journey map · Fatema</div>
+      <h2 style="font-size:34px">Where it goes wrong, and where we step in</h2>
+      <p>Moved into the Define stage after Term 1 feedback: a journey map defines opportunities, it doesn’t just document delivery.</p>
+    </div>
+    <div class="journey">
+      <div class="jgrid">
+        <div></div><div class="st">1 Inspired</div><div class="st">2 Buys</div><div class="st">3 Sets up</div><div class="st">4 Daily care</div><div class="st">5 Slips</div><div class="st">6 Recovers</div>
+        <div class="rl">Doing</div><div>Sees plants at a friend’s, worries about air</div><div>Buys two plants from a nursery</div><div>Places them, guesses at water and light</div><div>Waters when she remembers</div><div>Busy week. A leaf yellows</div><div>Finds app, sets reminders</div>
+        <div class="rl">Thinking</div><div>“This will make home feel better.”</div><div>“I hope I can do this.”</div><div>“What do these need?”</div><div>“Did I water it yesterday?”</div><div>“I’ve killed another one.”</div><div>“Maybe I can do this.”</div>
+        <div class="rl">Pain</div><div class="pn">None yet</div><div class="pn">Doesn’t know plant names</div><div class="pn">Conflicting advice online</div><div class="pn">No memory of last watering</div><div class="pn">Guilt, avoidance</div><div class="pn">Fear of starting again</div>
+        <div class="rl">Opportunity</div><div class="opp">Air-quality motivation</div><div class="opp">Scan to identify</div><div class="opp">Plain care fields</div><div class="opp">Today’s Tasks, one-tap done</div><div class="opp">Gentle reminders, undo</div><div class="opp">Progress and encouragement</div>
+      </div>
+      <div class="emo">
+        <svg viewBox="0 0 780 150" role="img" aria-label="Emotion curve: starts high, dips at setting up, falls lowest when a plant yellows, then recovers.">
+          <path d="M65 40 C130 30 195 25 260 50 S390 80 455 70 S585 125 650 118 S720 50 780 40" fill="none" stroke="#007537" stroke-width="3.5"/>
+          <g fill="#007537"><circle cx="65" cy="40" r="6"/><circle cx="195" cy="38" r="6"/><circle cx="325" cy="75" r="6"/><circle cx="455" cy="68" r="6"/><circle cx="585" cy="122" r="6" fill="#8F3F22"/><circle cx="715" cy="52" r="6"/></g>
+          <text x="6" y="22" font-size="12" fill="#5F5F5F" font-family="Poppins">Positive</text><text x="6" y="140" font-size="12" fill="#5F5F5F" font-family="Poppins">Negative</text>
+        </svg>
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px">The emotion curve is a designer’s synthesis of interview themes, not measured data.</p>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section id="strategy" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>06</b> UX strategy</div>
+      <h2>Information architecture</h2>
+      <p>Everything a beginner needs in one tap from five stable destinations. The structure is the same on every screen, so people spend attention on the plant, not the interface (Norman, 2013).</p>
+    </div>
+    <div class="tree">
+      <div><h4><svg class="ic" style="stroke:var(--green)"><use href="#i-home"/></svg>Home</h4><ul><li>Greeting and search</li><li>Garden overview</li><li>Plant and health counts</li><li>Today’s Tasks preview</li><li>Quick actions</li></ul></div>
+      <div><h4><svg class="ic" style="stroke:var(--green)"><use href="#i-plant"/></svg>Plants</h4><ul><li>Filters: All, Indoor, Balcony, Rooftop</li><li>Plant card with status</li><li>Plant details<ul><li>Mark as watered</li><li class="new">Undo</li><li>Edit plant</li></ul></li></ul></div>
+      <div><h4><svg class="ic" style="stroke:var(--green)"><use href="#i-plus"/></svg>Add</h4><ul><li>Scan plant<ul><li class="new">Camera permission</li><li class="new">Scanning state</li><li>Result</li><li class="new">Alternatives and low-confidence path</li></ul></li><li>Photo from gallery</li><li>Add manually</li><li class="new">Add details: location, nickname</li></ul></div>
+      <div><h4><svg class="ic" style="stroke:var(--green)"><use href="#i-today"/></svg>Today</h4><ul><li>Tasks by day</li><li>Progress and encouragement</li><li>Care Guide<ul><li>Watering, light, pruning</li><li>Seasonal: monsoon, winter</li><li>Travel care</li></ul></li></ul></div>
+      <div><h4><svg class="ic" style="stroke:var(--green)"><use href="#i-user"/></svg>Profile</h4><ul><li>Notifications</li><li>Reminder time</li><li>Language</li><li>Dark mode</li><li>Help and About</li><li>Log out</li></ul></div>
+    </div>
+    <p class="note" style="margin-top:14px">Green markers in the tree show additions made in the refinement round.</p>
+
+    <h3 style="margin:56px 0 18px">What changed from the first flow</h3>
+    <div class="grid g2">
+      <figure class="fig" style="margin:0"><img src="assets/research/flow-v1.jpg" alt="First user flow: login, home dashboard, plant categories, watering reminder, seasonal guide, user dashboard, profile" loading="lazy"><figcaption>Term 1 flow: account-first, reminder buried mid-flow, no scan, a separate user dashboard.</figcaption></figure>
+      <div>
+        <ul>
+          <li><b>Account moved out of the way.</b> Testing showed 2 of 5 participants unsure what to do first. A single “Get started” replaces a multi-step intro.</li>
+          <li><b>Reminders became a destination.</b> “Today’s Task” earned its own tab after testing.</li>
+          <li><b>Seasonal guide merged into Care Guide.</b> One content home, not two.</li>
+          <li><b>User dashboard folded into Home.</b> Counts and progress live where people already look.</li>
+          <li><b>Scan added.</b> The main discovery from usability round 2.</li>
+          <li><b>Labels simplified:</b> “Plants”, “Add”, “Today” replace “My Plants”, “Add Plants”, “Today’s Task”, which wrapped and crowded the bar.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USER FLOWS -->
+<section id="flows">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">User flows</div>
+      <h2 style="font-size:34px">From first open to first completed task</h2>
+      <p>Two flows matter most: getting started, and adding a plant by scan. Every branch ends somewhere useful.</p>
+    </div>
+    <div class="card flat">
+      <div class="frow"><span class="lab">First time</span>
+        <div class="fnode start">Open app<small>Welcome</small></div><div class="farrow">→</div>
+        <div class="fnode">Get started<small>One clear action</small></div><div class="farrow">→</div>
+        <div class="fnode">Choose first plant<small>Add flow</small></div><div class="farrow">→</div>
+        <div class="fnode">Home<small>Today’s Tasks first</small></div></div>
+      <div class="frow"><span class="lab">Returning</span>
+        <div class="fnode start">Open app</div><div class="farrow">→</div>
+        <div class="fnode">Home<small>Tasks one glance away</small></div><div class="farrow">→</div>
+        <div class="fnode">Mark task done<small>Undo available</small></div><div class="farrow">→</div>
+        <div class="fnode end">Progress updates<small>Encouragement</small></div></div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
+      <div class="frow"><span class="lab">Add by scan</span>
+        <div class="fnode start">Add tab</div><div class="farrow">→</div>
+        <div class="fnode">Scan plant</div><div class="farrow">→</div>
+        <div class="fnode dec">Camera allowed?</div>
+        <span class="branch">No → Upload or Manual</span><div class="farrow">→</div>
+        <div class="fnode">Capture<small>Frame and light tip</small></div><div class="farrow">→</div>
+        <div class="fnode">Identifying<small>Progress, cancel</small></div></div>
+      <div class="frow"><span class="lab">Result</span>
+        <div class="fnode dec">Confidence?</div>
+        <span class="branch">High ≥ 85%</span><div class="fnode">Result + care<small>Add or Retake</small></div>
+        <span class="branch">Medium 60–84%</span><div class="fnode">Top match + 2 alternatives<small>User confirms</small></div>
+        <span class="branch">Low &lt; 60%</span><div class="fnode">“Couldn’t tell”<small>Retake · Add manually</small></div></div>
+      <div class="frow"><span class="lab">Finish</span>
+        <div class="fnode">Add details<small>Location, nickname</small></div><div class="farrow">→</div>
+        <div class="fnode">Added<small>“We made a watering task”</small></div><div class="farrow">→</div>
+        <div class="fnode end">Today<small>First task visible</small></div></div>
+    </div>
+    <p class="note" style="margin-top:12px">Confidence thresholds are design proposals to be tuned against a real model.</p>
+  </div>
+</section>
+
+<!-- IDEATE -->
+<section id="ideate" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>07</b> Develop</div>
+      <h2>Ideation and feature priorities</h2>
+      <p>Brainstorming, SCAMPER and storyboarding generated the options. Prioritisation narrowed them to what a beginner needs first.</p>
+    </div>
+
+    <div class="grid g2">
+      <figure class="fig" style="margin:0"><img src="assets/research/storyboard-general.jpg" alt="Six-panel storyboard: a mother worried about her toddler coughing finds Little Garden, buys plants and the home becomes fresher" loading="lazy"><figcaption>Storyboard 1. A mother worried about air quality and her child’s health discovers the app and sees her home improve.</figcaption></figure>
+      <figure class="fig" style="margin:0"><img src="assets/research/storyboard-close.jpg" alt="Close-up storyboard of app screens: open app, log in, add plant location, browse indoor plants, plant profile, watering reminder" loading="lazy"><figcaption>Storyboard 2. The app-level journey: open, sign in, choose location, browse, view a plant profile, receive a reminder.</figcaption></figure>
+    </div>
+
+    <h3 style="margin:48px 0 16px">SCAMPER: ideas that reached the product</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Lens</th><th>Question</th><th>Idea that survived</th></tr></thead>
+      <tbody>
+        <tr><td><b>Substitute</b></td><td>What can replace manual memory?</td><td>Timed reminders and a daily task list</td></tr>
+        <tr><td><b>Combine</b></td><td>What belongs together?</td><td>Plant details with Mark as Watered in one place</td></tr>
+        <tr><td><b>Adapt</b></td><td>What works elsewhere?</td><td>Camera identification, adapted from PictureThis, with a confidence-and-correct pattern</td></tr>
+        <tr><td><b>Modify</b></td><td>What can be simplified?</td><td>Icon cards and short bullets instead of paragraphs</td></tr>
+        <tr><td><b>Put to other use</b></td><td>Another purpose?</td><td>Plants as an air-quality ally, surfaced in Care Guide</td></tr>
+        <tr><td><b>Eliminate</b></td><td>What can go?</td><td>Account-first onboarding; separate dashboard</td></tr>
+        <tr><td><b>Reverse</b></td><td>What if the app comes to you?</td><td>Task-first Home: what needs care today is already in front of you</td></tr>
+      </tbody>
+      <caption>Synthesis of the SCAMPER session, mapped to features in the final design.</caption>
+    </table></div>
+
+    <h3 style="margin:48px 0 16px">Feature prioritisation (MoSCoW)</h3>
+    <div class="prio">
+      <div class="quad must"><h4>Must have <span class="pill">Launch</span></h4><ul><li>Today’s Tasks with progress and one-tap done</li><li>Watering reminders at a chosen time</li><li>Plant details with plain-language care</li><li>Add plant manually</li></ul></div>
+      <div class="quad"><h4>Should have <span class="pill">Next</span></h4><ul><li>Scan to identify, with confidence and correction</li><li>Care Guide, including monsoon and winter</li><li>My Plants filters: Indoor, Balcony, Rooftop</li><li>Bangla language</li></ul></div>
+      <div class="quad"><h4>Could have <span class="pill">Later</span></h4><ul><li>Dark mode</li><li>Weekly progress recap</li><li>Plant search and favourites</li></ul></div>
+      <div class="quad"><h4>Won’t have <span class="pill warn">Not now</span></h4><ul><li>AI disease diagnosis (needs a validated model)</li><li>Community feed</li><li>Marketplace or nursery shop</li></ul></div>
+    </div>
+    <div class="callout"><strong>Why Scan moved up</strong>Testing participant P5 asked to photograph a plant to find out what was wrong. Identification is the honest first half of that request, and it can be built on a pattern users can understand and correct. Diagnosis is the second half and stays in future development.</div>
+
+    <h3 style="margin:56px 0 16px">Low-fidelity wireframes</h3>
+    <div class="wf-note">
+      <figure class="fig" style="margin:0"><img src="assets/research/wireframes-lofi.jpg" alt="Eight hand-drawn wireframes: welcome, home, recommendations for Dhaka, plant detail, reminders, seasonal guide, dashboard, profile" loading="lazy"><figcaption>Hand-drawn wireframes of eight screens, used to test structure and navigation before any visual design.</figcaption></figure>
+      <div>
+        <p><b>What the sketches settled</b></p>
+        <ul>
+          <li>A bottom bar with the same five destinations on every screen</li>
+          <li>Plant detail with Water, Sun and Air as the three primary facts</li>
+          <li>Reminders as cards with a clear time control</li>
+          <li>A profile page that holds settings and nothing else</li>
+        </ul>
+        <p><b>What changed in digital form</b></p>
+        <ul>
+          <li>“Air” dropped from plant detail and moved to Care Guide, because the daily job is water, light and temperature</li>
+          <li>“Recommend for Dhaka” became the Care Guide’s seasonal content</li>
+          <li>Reminders and dashboard merged into Today and Home</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin:40px 0 16px">Digital wireframes: Add → Scan → Result → Tasks</h4>
+    <div class="shots" id="wfs"></div>
+  </div>
+</section>
+
+<!-- DESIGN SYSTEM -->
+<section id="system">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>08</b> Design system</div>
+      <h2>A calm system you can trust</h2>
+      <p>The original palette, Poppins type, 8px grid and one icon family are kept. I audited every token against WCAG 2.2 and added accessible companions where the original combinations failed.</p>
+    </div>
+
+    <h3 style="margin-bottom:16px">Colour</h3>
+    <div class="swatches">
+      <div class="sw"><i style="background:#007537"></i><div><b>Primary Green</b><span>#007537</span><br><em class="ok">5.83:1 on white</em></div></div>
+      <div class="sw"><i style="background:#004621"></i><div><b>Secondary Green</b><span>#004621</span><br><em class="ok">11.06:1 on white</em></div></div>
+      <div class="sw"><i style="background:#9cb863"></i><div><b>Tertiary Green</b><span>#9cb863</span><br><em class="bad">White text 2.22:1</em></div></div>
+      <div class="sw"><i style="background:#D79378"></i><div><b>Terracotta</b><span>#D79378</span><br><em class="bad">White text 2.52:1</em></div></div>
+      <div class="sw"><i style="background:#8F3F22"></i><div><b>Terracotta Ink · new</b><span>#8F3F22</span><br><em class="ok">7.24:1 on white</em></div></div>
+      <div class="sw"><i style="background:#FBE9E2"></i><div><b>Terracotta Tint · new</b><span>#FBE9E2</span><br><em class="ok">7.96:1 with #7A2F14</em></div></div>
+      <div class="sw"><i style="background:#EAF1D8"></i><div><b>Leaf Tint · new</b><span>#EAF1D8</span><br><em class="ok">9.52:1 with #004621</em></div></div>
+      <div class="sw"><i style="background:#F5F5F5;border-bottom:1px solid #ddd"></i><div><b>Surface</b><span>#F5F5F5</span></div></div>
+      <div class="sw"><i style="background:#A4A4A4"></i><div><b>Old Dark Grey</b><span>#A4A4A4</span><br><em class="bad">Text 2.49:1 · retired</em></div></div>
+      <div class="sw"><i style="background:#5F5F5F"></i><div><b>Text Secondary · new</b><span>#5F5F5F</span><br><em class="ok">6.39:1 on white</em></div></div>
+      <div class="sw"><i style="background:#1B1F1C"></i><div><b>Ink · new</b><span>#1B1F1C</span><br><em class="ok">16.7:1 on white</em></div></div>
+      <div class="sw"><i style="background:#767676"></i><div><b>Control Border · new</b><span>#767676</span><br><em class="ok">4.54:1 · 3:1 needed</em></div></div>
+    </div>
+    <p style="margin-top:18px;max-width:70ch">Colour distribution follows 60-30-10 (Lidwell et al., 2010): neutrals about 60%, greens about 30% for structure, and Tertiary Green plus Terracotta about 10% for fills and status. <b>Rule:</b> Tertiary Green and Terracotta are fills only. Text on them is dark.</p>
+
+    <h3 style="margin:48px 0 16px">What the audit found</h3>
+    <div class="tablewrap"><table class="cr-table">
+      <thead><tr><th>Combination</th><th>Ratio</th><th>Result</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dotc" style="background:#007537;color:#fff">Aa</span>White on Primary Green</td><td>5.83:1</td><td>Pass AA</td><td>Keep</td></tr>
+        <tr><td><span class="dotc" style="background:#D79378;color:#fff">Aa</span>White on Terracotta (Need Care chip)</td><td>2.52:1</td><td><b>Fail</b></td><td>Dark ink on tint, plus an icon</td></tr>
+        <tr><td><span class="dotc" style="background:#9cb863;color:#fff">Aa</span>White on Tertiary Green (banners, Done chips, Healthy chip)</td><td>2.22:1</td><td><b>Fail</b></td><td>#004621 on Tertiary: 4.98:1</td></tr>
+        <tr><td><span class="dotc" style="background:#fff;color:#A4A4A4">Aa</span>#A4A4A4 secondary text on white</td><td>2.49:1</td><td><b>Fail</b></td><td>#5F5F5F: 6.39:1</td></tr>
+        <tr><td><span class="dotc" style="background:#fff;color:#5F5F5F">Aa</span>#5F5F5F on #F5F5F5</td><td>5.86:1</td><td>Pass AA</td><td>New default for secondary text</td></tr>
+        <tr><td><span class="dotc" style="background:#9cb863;color:#004621">Aa</span>Secondary Green on Tertiary Green</td><td>4.98:1</td><td>Pass AA</td><td>Banner text style</td></tr>
+      </tbody>
+      <caption>Contrast ratios calculated from the design system hex values using the WCAG relative-luminance formula.</caption>
+    </table></div>
+
+    <h3 style="margin:48px 0 16px">Status chip: before and after</h3>
+    <div class="cmp">
+      <div><h4>Before <span class="ratio" style="background:var(--terra-tint);color:#7A2F14">2.52:1</span></h4>
+        <div class="comp"><span class="chip old">Need Care</span><span class="chip" style="background:#9cb863;color:#fff">Healthy</span></div>
+        <p class="note" style="margin:12px 0 0">White text on mid-tone fills. Colour carries the meaning.</p></div>
+      <div><h4>After <span class="ratio" style="background:var(--leaf-tint);color:var(--green-deep)">7.96:1 / 9.52:1</span></h4>
+        <div class="comp"><span class="chip nc"><svg class="ic" style="stroke:currentColor;fill:none;stroke-width:2"><use href="#i-drop"/></svg>Need Care</span><span class="chip ok2"><svg class="ic" style="stroke:currentColor;fill:none;stroke-width:2.5"><use href="#i-check"/></svg>Healthy</span></div>
+        <p class="note" style="margin:12px 0 0">Tinted fill, dark ink, an icon and a label. Meaning survives greyscale.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:48px">
+      <div class="card flat">
+        <h3>Typography</h3>
+        <div class="type-row"><span class="code">H1</span><span style="font-size:36px;font-weight:600;line-height:1.1">Plant care</span><span class="code">36 / 600</span></div>
+        <div class="type-row"><span class="code">H2</span><span style="font-size:24px;font-weight:600">Today’s Tasks</span><span class="code">24 / 600</span></div>
+        <div class="type-row"><span class="code">Body</span><span style="font-size:16px;font-weight:500">Water when the top soil feels dry.</span><span class="code">16 / 500</span></div>
+        <div class="type-row"><span class="code">Caption</span><span style="font-size:14px">Last watered today</span><span class="code">14 / 400</span></div>
+        <div class="type-row"><span class="code">Label</span><span style="font-size:12px;font-weight:600">NEED CARE</span><span class="code">12 / 600</span></div>
+        <p class="note" style="margin-top:12px">Poppins throughout. Body never below 16px, labels never below 12px. Layout scales with the system text size.</p>
+      </div>
+      <div class="card flat">
+        <h3>Grid and spacing</h3>
+        <p>4 columns, 16px gutter, 16px margin, 8px base unit, designed mobile-first on a 375px frame.</p>
+        <div class="spacing"><div style="width:8px;height:8px"></div><div style="width:16px;height:16px"></div><div style="width:24px;height:24px"></div><div style="width:32px;height:32px"></div><div style="width:48px;height:48px">48</div><div style="width:64px;height:64px">64</div></div>
+        <h3 style="margin-top:28px">Icons</h3>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;color:var(--green-deep)">
+          <svg class="ic"><use href="#i-home"/></svg><svg class="ic"><use href="#i-plant"/></svg><svg class="ic"><use href="#i-plus"/></svg><svg class="ic"><use href="#i-today"/></svg><svg class="ic"><use href="#i-user"/></svg><svg class="ic"><use href="#i-drop"/></svg><svg class="ic"><use href="#i-sun"/></svg><svg class="ic"><use href="#i-therm"/></svg><svg class="ic"><use href="#i-hum"/></svg><svg class="ic"><use href="#i-scan"/></svg><svg class="ic"><use href="#i-cam"/></svg><svg class="ic"><use href="#i-bell"/></svg>
+        </div>
+        <p class="note" style="margin-top:12px">One family, one stroke weight (the original used Phosphor). Always paired with a label.</p>
+      </div>
+    </div>
+
+    <h3 style="margin:48px 0 16px">Components</h3>
+    <div class="grid g2">
+      <div><h4 style="margin-bottom:12px">Buttons</h4>
+        <div class="comp"><button class="cbtn p">Default</button><button class="cbtn h">Pressed</button><button class="cbtn f">Focus</button><button class="cbtn s">Secondary</button><button class="cbtn d" disabled>Disabled</button></div>
+        <p class="note" style="margin-top:10px">48px minimum height. Focus ring is a 3px blue outline with 3px offset, visible on every surface. Disabled text uses #5F5F5F on #E9E9E9 (5.26:1).</p></div>
+      <div><h4 style="margin-bottom:12px">Task completion</h4>
+        <div class="comp" id="taskdemo"></div>
+        <p class="note" style="margin-top:10px">Replaces the ON/OFF toggle. A circular check with a label reads as “done”, not “alarm on”. 48px target.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- UI -->
+<section id="ui" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>09</b> Deliver</div>
+      <h2>High-fidelity UI</h2>
+      <p>Eight connected screens, built on the system and tested with five participants. Each decision below traces back to research.</p>
+    </div>
+    <div class="shots">
+      <figure class="shot"><img src="assets/orig/get-started.jpg" alt="Welcome screen: Little Garden, bringing life to your space, Get started button" loading="lazy"><figcaption><b>Welcome</b>One clear action after testing showed 2 of 5 unsure where to begin</figcaption></figure>
+      <figure class="shot"><img src="assets/orig/home.jpg" alt="Home with garden overview, plant counts and Today’s Tasks with progress" loading="lazy"><figcaption><b>Home</b>Task-first. Urgent information is never a navigation away</figcaption></figure>
+      <figure class="shot"><img src="assets/orig/my-plants.jpg" alt="My Plants grid with Indoor, Balcony and Rooftop filters and status chips" loading="lazy"><figcaption><b>My Plants</b>Filters mirror where Dhaka residents grow</figcaption></figure>
+      <figure class="shot"><img src="assets/orig/plant-details-watered.jpg" alt="Plant details with Mark as Watered confirmation banner" loading="lazy"><figcaption><b>Plant details</b>One-tap watering, then reassurance</figcaption></figure>
+      <figure class="shot"><img src="assets/orig/add-plant.jpg" alt="Add a new plant with Scan, photo upload and manual options" loading="lazy"><figcaption><b>Add plant</b>Three ways in, because not everyone can or wants to scan</figcaption></figure>
+      <figure class="shot"><img src="assets/orig/scan-result.jpg" alt="Scan result: Pothos, 95 percent match, care fields, Add to my plants and Retake photo" loading="lazy"><figcaption><b>Scan result</b>Confidence plus a way to correct it</figcaption></figure>
+      <figure class="shot"><img src="assets/orig/todays-tasks.jpg" alt="Today’s Tasks with three tasks, 1 of 3 completed and an encouragement banner" loading="lazy"><figcaption><b>Today’s Tasks</b>Short cards, progress, encouragement</figcaption></figure>
+      <figure class="shot"><img src="assets/orig/care-guide.jpg" alt="Care Guide with watering, light, pruning, seasonal and travel care" loading="lazy"><figcaption><b>Care Guide</b>Icon cards and one sentence each</figcaption></figure>
+    </div>
+    <p class="note" style="margin-top:20px">Screens shown above are the Term 2 prototype. The refined versions follow in the next section.</p>
+
+    <h3 style="margin:64px 0 16px">Design rationale</h3>
+    <div class="grid g2">
+      <div class="card flat"><h4>Task-first Home</h4><p>Reminders were prioritised because forgetting was the largest named difficulty. Today’s Tasks sits directly under the counters so the answer to “what do I do now?” needs no navigation.</p></div>
+      <div class="card flat"><h4>Bottom navigation</h4><p>A bottom bar keeps core tasks within thumb reach on mobile, and the same five items in the same order reduce relearning.</p></div>
+      <div class="card flat"><h4>Reassurance after action</h4><p>Beginners hesitate without feedback. “Great, Monstera has been marked as watered” and “Your little garden is thriving” confirm the action and encourage the habit.</p></div>
+      <div class="card flat"><h4>Plain-language care</h4><p>“Water when top soil feels dry” beats “moderate hydration”. Beginners disengage from jargon, so every care field is short and visual.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW DEMO -->
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Refined flow</div>
+      <h2>Add Plant → Scan → Result → Tasks</h2>
+      <p>The complete loop, rebuilt and interactive. Tap through the phone or use the steps. Try the low-confidence path.</p>
+    </div>
+    <div class="demo">
+      <div class="phone-wrap" id="phoneWrap"><div class="phone"><div class="screen" id="screen" aria-live="polite"></div></div></div>
+      <div>
+        <div class="steps" id="steps" role="tablist" aria-label="Flow steps"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn og reset" id="lowBtn" type="button">Try the low-confidence path</button>
+          <button class="btn og reset" id="resetBtn" type="button">Restart</button>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin:72px 0 8px">What changed, and why</h3>
+    <div class="ba" style="margin-top:20px">
+      <figure><span class="pill warn tag">Before</span><img src="assets/orig/scan-result.jpg" alt="Original scan result screen" loading="lazy"></figure>
+      <figure><span class="pill tag">After</span><div id="afterPhone" style="display:flex;justify-content:center"></div></figure>
+    </div>
+    <div style="margin-top:36px;max-width:820px">
+      <div class="issue"><i>1</i><div><h4>Result had a single answer</h4><p>A 95% match left no room for a wrong guess. <span class="fix">Now: top match plus two alternatives, and a distinct “couldn’t tell” state under 60%.</span></p></div></div>
+      <div class="issue"><i>2</i><div><h4>“Add to my plants” skipped location and name</h4><p>The Plants tab filters by Indoor, Balcony, Rooftop, so adding without location produced orphan plants. <span class="fix">Now: a one-step details sheet.</span></p></div></div>
+      <div class="issue"><i>3</i><div><h4>No bridge to tasks</h4><p>Adding a plant didn’t say a watering task existed. <span class="fix">Now: a confirmation that names the task and links to Today.</span></p></div></div>
+      <div class="issue"><i>4</i><div><h4>Camera missing states</h4><p>No permission explanation, no loading, no cancel. <span class="fix">Now: a permission pre-prompt, a progress state with cancel, and Upload / Manual as always-visible fallbacks.</span></p></div></div>
+      <div class="issue"><i>5</i><div><h4>ON / OFF toggles for done</h4><p>“ON, Done” on a task card is ambiguous. <span class="fix">Now: a labelled circular check with Undo.</span></p></div></div>
+      <div class="issue"><i>6</i><div><h4>Text and typos</h4><p>“Temparature”, “Next Watered”, and three different profile names (Hannah, Aleena Khan, Hannah Mackay). <span class="fix">Now: “Temperature”, “Next watering”, and one consistent Dhaka-appropriate user.</span></p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTING -->
+<section id="testing" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>10</b> Test &amp; iterate</div>
+      <h2>Usability testing and iterations</h2>
+      <p>Two completed rounds with five participants each, using a think-aloud protocol (Nielsen, 1994), then an accessibility and heuristic audit that produced the final refinements.</p>
+    </div>
+
+    <h3 style="margin-bottom:14px">Round 1 · Low-fidelity prototype</h3>
+    <div class="tablewrap"><table class="rtable">
+      <thead><tr><th>Task</th><th>Completion</th><th>Problem found</th><th>Design response</th></tr></thead>
+      <tbody>
+        <tr><td>Create an account</td><td>4/5 (80%)</td><td>2 participants unsure what to do first</td><td>Single question and one clear action on opening</td></tr>
+        <tr><td>Add a plant</td><td>5/5 (100%)</td><td>None</td><td>Keep. Add search as an enhancement</td></tr>
+        <tr><td>Set a watering reminder</td><td>5/5 (100%)</td><td>1 wanted more frequency options</td><td>Custom options: daily, every 2 days, weekly</td></tr>
+        <tr><td>Read care instructions</td><td>5/5 (100%)</td><td>1 felt some pages had too much text</td><td>Icon cards and short bullets</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin-top:16px">Every participant named the watering reminder as the feature they would use most, matching the 73.3% who asked for reminders in the survey.</p>
+
+    <h3 style="margin:48px 0 14px">Round 2 · High-fidelity prototype</h3>
+    <div class="tablewrap"><table class="rtable">
+      <thead><tr><th>Participant</th><th>Comment (paraphrased)</th><th>Design response</th></tr></thead>
+      <tbody>
+        <tr><td>P1 · beginner owner</td><td>Unsure what to do first on opening the app</td><td>Home rebuilt around Today’s Tasks with a progress bar</td></tr>
+        <tr><td>P2 · busy owner</td><td>Wanted to see which plants need attention, quickly</td><td>Task cards simplified to plant, activity and status</td></tr>
+        <tr><td>P3 · beginner owner</td><td>Worried about picking the wrong care option</td><td>Plant details and care guidance made clearer</td></tr>
+        <tr><td>P4 · indoor plant owner</td><td>Wanted more guidance for different plants</td><td>Dedicated Care Guide added</td></tr>
+        <tr><td>P5 · plant owner</td><td>Wanted to photograph a plant to find out what looked wrong</td><td>Scan Plant added, then Scan Result with a correction path</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin-top:16px">Peer critique independently raised P1’s onboarding concern, corroborating it. P5’s request carried the most weight: not a styling problem but a missing capability.</p>
+
+    <h3 style="margin:48px 0 14px">Iteration timeline</h3>
+    <div class="timeline">
+      <div><small>Iteration 1</small><h4>Low-fi → Hi-fi</h4><p style="font-size:15px;margin:6px 0 0">Single opening action, icon-card care, reminder options.</p></div>
+      <div><small>Iteration 2</small><h4>Task-first and Scan</h4><p style="font-size:15px;margin:6px 0 0">Today tab, Care Guide, Scan entry, then the Result screen.</p></div>
+      <div><small>Iteration 3</small><h4>Audit-driven</h4><p style="font-size:15px;margin:6px 0 0">Contrast fixes, status chips with icons, confidence tiers, task completion and Undo.</p></div>
+      <div><small>Next</small><h4>Round 3 validation</h4><p style="font-size:15px;margin:6px 0 0">Test the refined flow with Dhaka users (plan below).</p></div>
+    </div>
+
+    <div class="callout warn" style="margin-top:36px"><strong>Honest limits</strong>Ten participants across two rounds find real problems but cannot represent every beginner in Dhaka. Iteration 3 changes come from the audit, not from new participants, so they are hypotheses until Round 3.</div>
+
+    <h3 style="margin:40px 0 14px">Round 3 plan</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Task</th><th>Success measure</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>Add a plant by scan and complete its first task</td><td>Unassisted completion, time on task</td><td>≥ 90% completion</td></tr>
+        <tr><td>Recover from a wrong match</td><td>Chooses an alternative or retakes without help</td><td>≥ 80%</td></tr>
+        <tr><td>Mark a task done by mistake, then undo</td><td>Finds Undo within 5 seconds</td><td>≥ 90%</td></tr>
+        <tr><td>Overall perception</td><td>System Usability Scale; confidence rating</td><td>SUS ≥ 80</td></tr>
+      </tbody>
+      <caption>Targets are proposals for the next round, not results.</caption>
+    </table></div>
+  </div>
+</section>
+
+<!-- ACCESSIBILITY -->
+<section id="a11y">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>11</b> Inclusive design</div>
+      <h2>Accessibility considerations</h2>
+      <p>Checked against WCAG rather than assumed. The audit caught the Terracotta failure on its own, and then found more.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card flat"><span class="pill">1.4.3 · 1.4.11</span><h4 style="margin-top:12px">Contrast</h4><p>Text 4.5:1 or better, UI borders 3:1 or better. Three failing pairs found and replaced (see Design system).</p></div>
+      <div class="card flat"><span class="pill">1.4.1</span><h4 style="margin-top:12px">Not colour alone</h4><p>Every status has an icon and a label. Task state is a check plus the word Done.</p></div>
+      <div class="card flat"><span class="pill">2.5.5 · 2.5.8</span><h4 style="margin-top:12px">Touch targets</h4><p>48px minimum for buttons, checks, tabs and chips in actionable areas. Above the 24px AA requirement and the 44px AAA target.</p></div>
+      <div class="card flat"><span class="pill">1.4.4 · 1.4.12</span><h4 style="margin-top:12px">Readable type</h4><p>16px body, 12px label floor. Layouts wrap, not clip, at larger system text sizes.</p></div>
+      <div class="card flat"><span class="pill">4.1.2 · 4.1.3</span><h4 style="margin-top:12px">Screen readers</h4><p>Status messages (“Pothos added”) announced politely. Icon buttons carry labels. Scan result reads species, confidence and alternatives in order.</p></div>
+      <div class="card flat"><span class="pill">3.3 · 2.2</span><h4 style="margin-top:12px">Error recovery</h4><p>Wrong match, denied camera and accidental completion all have a visible way back: Retake, Upload, Manual and Undo.</p></div>
+      <div class="card flat"><span class="pill">2.3.3</span><h4 style="margin-top:12px">Motion</h4><p>The scanning line and progress animation respect “reduce motion”, falling back to a static state with text.</p></div>
+      <div class="card flat"><span class="pill">Cognitive</span><h4 style="margin-top:12px">Low cognitive load</h4><p>One primary action per screen, one icon family, short jargon-free copy, and confirmation after every action.</p></div>
+      <div class="card flat"><span class="pill">Inclusion</span><h4 style="margin-top:12px">Language and context</h4><p>Bangla is a Should-have. Dark mode needs its own contrast pass, not just inverted colours.</p></div>
+    </div>
+    <div class="callout"><strong>Still to do</strong>A device-level screen-reader pass (TalkBack and VoiceOver), automated contrast checks in the design file, and testing with participants who use assistive technology.</div>
+  </div>
+</section>
+
+<!-- FUTURE -->
+<section id="future" class="tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>12</b> What’s next</div>
+      <h2>Future development</h2>
+      <p>The groundwork is built: a confidence-and-correct pattern that extends to diagnosis. What remains is connecting it to a real model and testing at scale.</p>
+    </div>
+    <div class="road">
+      <div class="card"><h3>Next <span class="pill">0–3 months</span></h3><ul><li>Round 3 testing with Dhaka users</li><li>Bangla localisation and bilingual care content</li><li>Native build with real push notifications</li><li>Screen-reader pass on device</li></ul></div>
+      <div class="card"><h3>Then <span class="pill">3–9 months</span></h3><ul><li>Plant health diagnosis: photo in, condition and confidence out, same result layout</li><li>Weather- and monsoon-aware reminders</li><li>Pet- and child-safe plant flags, from the storyboard</li><li>Offline care guide</li></ul></div>
+      <div class="card"><h3>Later <span class="pill">9+ months</span></h3><ul><li>Home air-quality view linked to plants</li><li>Local nursery and plant sharing</li><li>Community, with moderation</li><li>Weekly progress recap</li></ul></div>
+    </div>
+    <div class="callout"><strong>Limitations</strong>Five-person rounds, a Figma prototype with no backend, and no real notifications, performance or long-term engagement data. Diagnosis needs a validated image-classification model this project could not build or verify.</div>
+  </div>
+</section>
+
+<!-- TAKEAWAY -->
+<section id="takeaway" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><b>13</b> Reflection</div>
+      <h2>What I’d tell the next designer</h2>
+    </div>
+    <ol class="takeaways" style="max-width:760px;font-size:19px;padding-left:22px">
+      <li><b>Say what research cannot say.</b> Separating motivation (clean air) from barrier (care) kept the product honest.</li>
+      <li><b>Audit your own system.</b> Contrast checks caught three failing pairs I had originally called accessible.</li>
+      <li><b>One testing comment can reshape a flow.</b> P5 turned a single entry card into a complete Scan loop.</li>
+      <li><b>Always give a way back.</b> Retake, Upload, Manual and Undo mattered more than the model’s accuracy.</li>
+      <li><b>Design for the person who lost a plant.</b> Tone is a feature.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h3 style="margin-bottom:20px">References</h3>
+    <div class="refs">
+      <p>Bringslimark, T., Hartig, T., &amp; Patil, G. G. (2009). The psychological benefits of indoor plants. <i>Journal of Environmental Psychology, 29</i>(4), 422–433.</p>
+      <p>Brown, T. (2009). <i>Change by design.</i> HarperBusiness.</p>
+      <p>Cooper, A., Reimann, R., Cronin, D., &amp; Noessel, C. (2014). <i>About face</i> (4th ed.). Wiley.</p>
+      <p>Creswell, J. W., &amp; Creswell, J. D. (2018). <i>Research design</i> (5th ed.). SAGE.</p>
+      <p>Design Council. (2005). The design process: What is the Double Diamond?</p>
+      <p>Eberle, B. (1996). <i>SCAMPER.</i> Prufrock Press.</p>
+      <p>Eyal, N. (2014). <i>Hooked.</i> Portfolio.</p>
+      <p>Lidwell, W., Holden, K., &amp; Butler, J. (2010). <i>Universal principles of design</i> (Rev. ed.). Rockport.</p>
+      <p>Martin, B., &amp; Hanington, B. (2012). <i>Universal methods of design.</i> Rockport.</p>
+      <p>NASA. (1989). <i>Interior landscape plants for indoor air pollution abatement.</i></p>
+      <p>Nielsen, J. (1994). <i>Usability engineering.</i> Academic Press.</p>
+      <p>Norman, D. A. (2013). <i>The design of everyday things</i> (Rev. ed.). Basic Books.</p>
+      <p>Safayet, M., Arefin, M. F., &amp; Hasan, M. M. U. (2017). Present practice and future prospect of rooftop farming in Dhaka city. <i>Journal of Urban Management, 6</i>(2), 56–65.</p>
+      <p>Tullis, T., &amp; Albert, B. (2013). <i>Measuring the user experience</i> (2nd ed.). Morgan Kaufmann.</p>
+      <p>World Wide Web Consortium. (2023). <i>Web content accessibility guidelines (WCAG) 2.2.</i> https://www.w3.org/TR/WCAG22/</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Thank you for reading.</h2>
+    <p>Little Garden is a UX case study by Nusrat Afsana Usha, MA UX Design. Plant photography is from the original prototype.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
