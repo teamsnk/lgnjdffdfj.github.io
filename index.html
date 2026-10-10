@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("anim")</script>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -59,7 +60,7 @@
     <div>
       <span class="pill dark" style="background:rgba(255,255,255,.12)">UX case study · MA UX Design</span>
       <h1 style="margin-top:22px">Little <em>Garden</em></h1>
-      <p class="tag">A beginner-first plant care app that helps people in Dhaka keep the plants they buy alive.</p>
+      <p class="tag hero-in">A beginner-first plant care app that helps people in Dhaka keep the plants they buy alive.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px">
         <a class="btn p" href="#flow">See the Scan flow</a>
         <a class="btn o" href="#overview">Read the case study</a>
@@ -95,9 +96,9 @@
     </dl>
 
     <div class="grid g3" style="margin-top:32px">
-      <div class="card"><div class="stat">89.7%</div><p style="margin-top:10px">of surveyed Dhaka residents had lost a plant before.</p></div>
-      <div class="card"><div class="stat t">46.7%</div><p style="margin-top:10px">name <em>forgetting to water</em> as a main difficulty, and 43.3% don’t know how to care for plants.</p></div>
-      <div class="card"><div class="stat">73.3%</div><p style="margin-top:10px">want watering reminders, the most requested feature, so reminders became the product’s spine.</p></div>
+      <div class="card"><div class="stat" data-count="89.7">89.7%</div><p style="margin-top:10px">of surveyed Dhaka residents had lost a plant before.</p></div>
+      <div class="card"><div class="stat t" data-count="46.7">46.7%</div><p style="margin-top:10px">name <em>forgetting to water</em> as a main difficulty, and 43.3% don’t know how to care for plants.</p></div>
+      <div class="card"><div class="stat" data-count="73.3">73.3%</div><p style="margin-top:10px">want watering reminders, the most requested feature, so reminders became the product’s spine.</p></div>
     </div>
 
     <div class="grid g2" style="margin-top:32px">
@@ -352,7 +353,7 @@
       </div>
       <div class="emo">
         <svg viewBox="0 0 780 150" role="img" aria-label="Emotion curve: starts high, dips at setting up, falls lowest when a plant yellows, then recovers.">
-          <path d="M65 40 C130 30 195 25 260 50 S390 80 455 70 S585 125 650 118 S720 50 780 40" fill="none" stroke="#007537" stroke-width="3.5"/>
+          <path class="curve" pathLength="1" d="M65 40 C130 30 195 25 260 50 S390 80 455 70 S585 125 650 118 S720 50 780 40" fill="none" stroke="#007537" stroke-width="3.5"/>
           <g fill="#007537"><circle cx="65" cy="40" r="6"/><circle cx="195" cy="38" r="6"/><circle cx="325" cy="75" r="6"/><circle cx="455" cy="68" r="6"/><circle cx="585" cy="122" r="6" fill="#8F3F22"/><circle cx="715" cy="52" r="6"/></g>
           <text x="6" y="22" font-size="12" fill="#5F5F5F" font-family="Poppins">Positive</text><text x="6" y="140" font-size="12" fill="#5F5F5F" font-family="Poppins">Negative</text>
         </svg>
@@ -796,5 +797,6 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/motion.js"></script>
 </body>
 </html>
